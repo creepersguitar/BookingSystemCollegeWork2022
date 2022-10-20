@@ -1,0 +1,6 @@
+def loadTrains():											# name of def statement
+	sqlselect = ("SELECT * FROM Train_Information")			# selects everything from train information
+	rows = query_database(database_file, sqlselect)			# query database
+	for row in rows:										# for row in the variable rows
+		line = str(row[0]) + ' ' + row[1] + ' ' + row[2] + ' ' + row[3]					# makes the combo box a string
+		ComboTrain.append(line)								# appends the list with the variable row
