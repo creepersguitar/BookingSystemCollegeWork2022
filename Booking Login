@@ -1,0 +1,18 @@
+###################
+#### sql login ####
+###################
+def login_Customer():								# name of def statement
+	global userLogin								# global statement to bring value of different vairable into def statement
+	if userLogin_textbox.value == "" and username_textbox.value >'3' and username_textbox.value <='20':					# says if the username has nothing entered and its less than 0 and greater than 20 then
+		info("Error", "You must enter a username between 3-20 characters")						# displays an info box with an error message
+	elif pwlogin_textbox.value == "" and pwlogin_textbox.value < '7':			# says if the passwordbox value has nothing entered and its less than 7 then
+		info("Error", "Enter a password greater than  7 characters")			# displays an error message on an info box
+	else:			# otherwise
+		sqlselect = ("SELECT * FROM Customer_Table WHERE UserName = "+ "'"+ str(userLogin_textbox.value)+"'"+ " AND UserPassword = "+ "'" + str(pwlogin_textbox.value) + "'") # Select everything from the customer table where username and password match input
+		rows = query_database(database_file, sqlselect)					# query database
+		if len(rows) == 0:				# if the length of rows equals to 0 then
+			info("Login","Error you are not registered create an account")		# Displays a login error to show that you are not registered
+		else:				# otherwise
+			info("Login","Success Login is successful")				# display an info box with a login success to show that your login is successful
+			userLogin = rows[0][0]						# sets the userLogin variable to the item 0 in the rows variable
+			open_booking_window()						# opens a different def statement which opens the window
