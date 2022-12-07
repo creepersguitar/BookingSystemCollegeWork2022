@@ -1,0 +1,13 @@
+ComboTrain = Combo(windowB)																				# creates a drop down menu
+
+def booking_ticket():															# name of the def statement
+    global Price																# sets the variable Price to be global
+    global USRLOGIN															# sets the variable userLogin to be global
+    global ComboTrain															# sets the variable ComboTrain to global
+    train = ComboTrain.value.split()											# set the variable train to the combo box value splitted
+    if bookDate_textbox.value == "" or '/' not in bookDate_textbox.value:		# if the value is not there or there is no '/' within the booking date value then
+        info("Error","You must enter a valid date as DD/MM/YYYY or DD/MM")				# displays info box which tells the user to enter a valid date
+    else:																		# otherwise
+        InsertSQLBook = ("INSERT INTO Booking_Table (BookingDate, BookingTime, BookingStationFrom, BookingStationTo, TicketPrice, CustomerID, TrainID) VALUES ('" + str(bookDate_textbox.value) + "','" + str(train[3]) + "','" + str(train[1]) + "','" + str(train[2]) + "','" + str(Price.value)+ "','" + str(USERLOGIN)+ "','" + str(train[0])+ "')")
+        execute_sql(DATABASE_FILE, InsertSQLBook)					# calls the execute sql statement (line above is inserting into the booking table of the database)
+        info("Success", "Your ticket has been booked")				# displays info box
